@@ -56,11 +56,11 @@ class account extends Controller{
 		$this->users->deleteUser($userId);
 		if($_SESSION["orders"]['id'] == $userId)
 		{
-			header('Location: /ordersnew/public/login');
+			header('Location: /orders/public/login');
 		}
 		else
 		{
-			header('Location: /ordersnew/public/account');
+			header('Location: /orders/public/account');
 		}
 	}
 
@@ -82,11 +82,11 @@ class account extends Controller{
 		$this->users->setPassword($userId, $password);
 		if($_SESSION["orders"]['id'] == $userId)
 		{
-			header('Location: /ordersnew/public/login');
+			header('Location: /orders/public/login');
 		}
 		else
 		{
-			header('Location: /ordersnew/public/account');
+			header('Location: /orders/public/account');
 		}
 	}
 
@@ -103,16 +103,16 @@ class account extends Controller{
 					$this->users->setPassword($_SESSION["orders"]['id'], sha1($_POST['newpass']));
 					session_unset();
 					session_destroy();
-					header('Location: /ordersnew/public/login');
+					header('Location: /orders/public/login');
 				}
 				else
 				{
-					header('Location: /ordersnew/public/account');
+					header('Location: /orders/public/account');
 				}
 			}
 			else
 			{
-				header('Location: /ordersnew/public/account/');
+				header('Location: /orders/public/account/');
 			}
 		}
 	}

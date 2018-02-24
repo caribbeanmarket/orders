@@ -59,7 +59,7 @@ class home extends Controller{
 	{
 		session_unset();
 		session_destroy();
-		header('Location: /ordersnew/public/login');
+		header('Location: /orders/public/login');
 	}
 
 	private function renderView($data)

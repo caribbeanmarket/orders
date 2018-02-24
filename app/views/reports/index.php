@@ -48,9 +48,9 @@
 		  			echo "<tr>";
 		  			if($_SESSION['orders']['role'] == 7)
 			  		{
-		  				echo "<td class = 'tdminus'><a href='/ordersnew/public/reports/delete_report/".$data['reports'][$i]['id']."'><span class='glyphicon glyphicon-minus'></span></a></td>";
+		  				echo "<td class = 'tdminus'><a href='/orders/public/reports/delete_report/".$data['reports'][$i]['id']."'><span class='glyphicon glyphicon-minus'></span></a></td>";
 			  		}
-		  			echo "<td><a href='/ordersnew/public/reports/single/".$data['reports'][$i]['id']."'>".strtoupper($data['reports'][$i]['name'])."</a></td>";
+		  			echo "<td><a href='/orders/public/reports/single/".$data['reports'][$i]['id']."'>".strtoupper($data['reports'][$i]['name'])."</a></td>";
 		  			echo "<td>".date("D, F d-Y H:i:s",strtotime($data['reports'][$i]['timestamp']))."</td>";
 		  			echo "<td>".$data['reports'][$i]['date_from']."</td>";
 		  			echo "<td>".$data['reports'][$i]['date_to']."</td>";

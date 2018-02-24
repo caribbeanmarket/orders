@@ -13,7 +13,7 @@ jQuery(function($){
 	$(".newReportEdit").change(function(){
 		$.ajax({
 		  type: "POST",
-		  url: "/ordersnew/public/reports/new_report",
+		  url: "/orders/public/reports/new_report",
 		  data: {name : $("#name").val(),
 		  		 date_from : $("#date_from").val(),  
 		  		 date_to : $("#date_to").val(),
@@ -105,7 +105,7 @@ jQuery(function($){
 		$(this).parent().parent().find('.vendorno').text(vno);
 		$.ajax({
 		  type: "POST",
-		  url: "/ordersnew/public/ordersnew/update_order_vendor",
+		  url: "/orders/public/orders/update_order_vendor",
 		  data: {vdrname : vendor,
 		  		 vdrno : vendorno,
 		  		 ident : id, 
@@ -133,7 +133,7 @@ jQuery(function($){
 	$(".errorPara").click(function(){
 		$.ajax({
 		  type: "POST",
-		  url: "/ordersnew/public/reports/reset_error",
+		  url: "/orders/public/reports/reset_error",
 		  success: function(data){
 		  	$(".errorPara").fadeOut();
 		  	// $(".errorPara").remove();
@@ -147,7 +147,7 @@ jQuery(function($){
 	$(".reportInputs").change(function(){
 		$.ajax({
 		  type: "POST",
-		  url: "/ordersnew/public/reports/set_itemValue",
+		  url: "/orders/public/reports/set_itemValue",
 		  data: {name : $(this).parent().attr('class'),
 		  		 ident : $(this).parent().parent().attr('id'),  
 		  		 value : $(this).val()},
@@ -163,7 +163,7 @@ jQuery(function($){
 	$(".reportInput").change(function(){
 		$.ajax({
 		  type: "POST",
-		  url: "/ordersnew/public/reports/update_itemValue",
+		  url: "/orders/public/reports/update_itemValue",
 		  data: {name : $(this).parent().attr('class'),
 		  		 ident : $(this).parent().parent().attr('id'),  
 		  		 value : $(this).val()},
@@ -196,7 +196,7 @@ jQuery(function($){
 			var tr = $(this);
 			$.ajax({
 			  type: "POST",
-			  url: "/ordersnew/public/reports/updateBatch",
+			  url: "/orders/public/reports/updateBatch",
 			  data: {upc : $(this).find(".upcTD").text()},
 			  success: function(data){
 			  	console.log(data);

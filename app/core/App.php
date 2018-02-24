@@ -32,7 +32,7 @@ class App{
 			if($_SESSION["orders"]['role'] < 5)
 			{
 				unset($_SESSION);
-				header('Location: /ordersnew/public/login');
+				header('Location: /orders/public/login');
 			}
 		}
 

@@ -101,7 +101,7 @@ class reports extends Controller{
 				$_SESSION["report"]['type'] = 1;
 			}	
 		}
-		header('Location: /ordersnew/public/home');
+		header('Location: /orders/public/home');
 
 	}
 
@@ -123,7 +123,7 @@ class reports extends Controller{
 			$_SESSION["report"]['addItems'] = 'disabled';
 			$_SESSION["report"]['type'] = 2;
 		}
-		header('Location: /ordersnew/public/home');
+		header('Location: /orders/public/home');
 
 	}
 
@@ -146,7 +146,7 @@ class reports extends Controller{
 			$_SESSION["report"]['addItems'] = 'disabled';
 			$_SESSION["report"]['type'] = 3;
 		}
-		header('Location: /ordersnew/public/home');
+		header('Location: /orders/public/home');
 
 	}
 
@@ -217,7 +217,7 @@ class reports extends Controller{
 		$upcPriceCompare = false;
 		if($id == false)
 		{
-			header('Location: /ordersnew/public/reports');
+			header('Location: /orders/public/reports');
 		}
 		$name = $this->report->getReportName($id);
 		$report = $this->report->get_report($id);
@@ -233,7 +233,7 @@ class reports extends Controller{
 		if(count($report) == 0)
 		{
 			$this->report->delete_report($id);
-			header('Location: /ordersnew/public/home');
+			header('Location: /orders/public/home');
 		}
 		$this->view('reports/single', array("report" => $report, "anchor" => $anchor, "upcPriceCompare" => $upcPriceCompare, "report_id" => $id, "upc" => $upc));
 	}
@@ -243,7 +243,7 @@ class reports extends Controller{
 		$upcPriceCompare = false;
 		if($id == false)
 		{
-			header('Location: /ordersnew/public/reports');
+			header('Location: /orders/public/reports');
 		}
 		$name = $this->report->getReportName($id);
 		$report = $this->report->get_report2($id);
@@ -259,7 +259,7 @@ class reports extends Controller{
 		if(count($report) == 0)
 		{
 			$this->report->delete_report($id);
-			header('Location: /ordersnew/public/home');
+			header('Location: /orders/public/home');
 		}
 		$this->view('reports/singleSection', array("report" => $report, "anchor" => $anchor, "upcPriceCompare" => $upcPriceCompare, "report_id" => $id, "upc" => $upc));
 	}
@@ -311,7 +311,7 @@ class reports extends Controller{
 			 	$_SESSION['report']['items'][$report[$i]['upc']]['DptName'] = $report[$i]['DptName'];
 			}
 		}
-		header('Location: /ordersnew/public/home');
+		header('Location: /orders/public/home');
 	}
 
 	public function duplicate($id)
@@ -360,7 +360,7 @@ class reports extends Controller{
 			 	$_SESSION['report']['items'][$report[$i]['upc']]['DptName'] = $report[$i]['DptName'];
 			}
 		}
-		header('Location: /ordersnew/public/home');
+		header('Location: /orders/public/home');
 	}
 
 
@@ -368,7 +368,7 @@ class reports extends Controller{
 	public function reset()
 	{
 		unset($_SESSION['report']);
-		header('Location: /ordersnew/public/home');
+		header('Location: /orders/public/home');
 	}
 
 	public function new_report()
@@ -449,7 +449,7 @@ class reports extends Controller{
 				}
 			}			
 		}
-		header('Location: /ordersnew/public/home');
+		header('Location: /orders/public/home');
 	}
 
 	public function returnItemWithCheapestVendor($items){
@@ -529,7 +529,7 @@ class reports extends Controller{
 				}
 			}	
 		}
-		header('Location: /ordersnew/public/home');
+		header('Location: /orders/public/home');
 	}
 
 	public function set_itemValue()
@@ -560,7 +560,7 @@ class reports extends Controller{
 		{
 			unset($_SESSION['report']['items'][$upc]);
 		}
-		header('Location: /ordersnew/public/home/#'.$next);
+		header('Location: /orders/public/home/#'.$next);
 	}
 
 	public function save_report()
@@ -640,7 +640,7 @@ class reports extends Controller{
 		{
 			$_SESSION['error'] = "Your report cannot be saved because it was not found";
 		}
-		header("Location:/ordersnew/public/home");
+		header("Location:/orders/public/home");
 	}
 
 	public function reset_error()
@@ -656,7 +656,7 @@ class reports extends Controller{
 		$this->report->delete_report($id);
 		$this->report->delete_report_items($id);
 
-		header("Location:/ordersnew/public/reports");
+		header("Location:/orders/public/reports");
 	}
 
 	public function delete_item($id, $report_id, $anchor = null)
@@ -665,7 +665,7 @@ class reports extends Controller{
 		$this->report->delete_item($id);
 		$name = $this->report->getReportName($report_id);
 		$this->deleteOrderItemLog($name, $report_id, $id, $item['upc'], $item['description']);
-		header("Location:/ordersnew/public/reports/single/".$report_id."/".$anchor);
+		header("Location:/orders/public/reports/single/".$report_id."/".$anchor);
 	}
 
 	public function addExcel(){
@@ -755,17 +755,17 @@ class reports extends Controller{
 			}
 		}
 		// var_dump($_SESSION['report']); die();
-		header("Location:/ordersnew/public/home");
+		header("Location:/orders/public/home");
 	}
 
 	public function close($id = false, $status = 0)
 	{
 		if($id == false){
-			header("Location:/ordersnew/public/reports");
+			header("Location:/orders/public/reports");
 		}
 		$this->report->updateStatus($id, $status);
 		$name = $this->report->getReportName($id);
 		$this->closeOrderLog($name, $id, $status);
-		header("Location:/ordersnew/public/reports/single/".$id);
+		header("Location:/orders/public/reports/single/".$id);
 	}
 }

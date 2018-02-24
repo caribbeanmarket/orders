@@ -12,7 +12,7 @@ class login extends Controller{
 	{
 		if(!empty($_SESSION['orders']['id']))
 		{
-			header('Location: /ordersnew/public/home');
+			header('Location: /orders/public/home');
 		}
 		// csmreport51M
 		if(isset($_POST['submit']))
@@ -41,7 +41,7 @@ class login extends Controller{
 							}else{
 								$this->startUserSession($user);
 								$this->rememberUser($_POST);
-								header('Location: /ordersnew/public/home');
+								header('Location: /orders/public/home');
 							}
 						}
 					}
@@ -60,7 +60,7 @@ class login extends Controller{
 						}else{
 							$this->startUserSession($user);
 							$this->rememberUser($_POST);
-							header('Location: /ordersnew/public/home');
+							header('Location: /orders/public/home');
 						}
 					}
 				}

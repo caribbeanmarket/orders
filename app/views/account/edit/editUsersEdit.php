@@ -5,7 +5,7 @@
 		<thead>
 			<tr><th colspan="7">Users</th></tr>
 			<tr><th>Last name</th><th>First name</th><th>Username</th><th>Email</th><th>Access</th><th>Vendors</th><th>Actions</th></tr>
-			<form method = "POST" action = "/ordersnew/public/account/edit/<?= $data['user']['id'] ?>">
+			<form method = "POST" action = "/orders/public/account/edit/<?= $data['user']['id'] ?>">
 				<tr><th><input type="hidden" name="id" value = <?= $data['user']['id'] ?>><input type="text" class="form-control" name="lastname" placeholder="Last name" required value = <?= $data['user']['lastname'] ?>></th>
 					<th><input type="text" class="form-control" name="firstname" placeholder="First name" required value = <?= $data['user']['firstname'] ?>></th>
 					<th><input type="text" class="form-control" name="username" placeholder="Username" required value = <?= $data['user']['username'] ?>></th>
@@ -39,9 +39,9 @@
 					}else{
 						echo "<td>ALL</td>";
 					}
-					echo "<td><a href='/ordersnew/public/account/delete/" . $data['users'][$i]['id'] . "'><input type='submit' class='btn btn-default' value='Delete'></a>
-							  <a href='/ordersnew/public/account/reset/" . $data['users'][$i]['id'] . "'><input type='submit' class='btn btn-default' value='Reset'></a>
-							  <a href='/ordersnew/public/account/edit/" . $data['users'][$i]['id'] . "'><input type='submit' class='btn btn-default' value='Edit'></a></td></td>";
+					echo "<td><a href='/orders/public/account/delete/" . $data['users'][$i]['id'] . "'><input type='submit' class='btn btn-default' value='Delete'></a>
+							  <a href='/orders/public/account/reset/" . $data['users'][$i]['id'] . "'><input type='submit' class='btn btn-default' value='Reset'></a>
+							  <a href='/orders/public/account/edit/" . $data['users'][$i]['id'] . "'><input type='submit' class='btn btn-default' value='Edit'></a></td></td>";
 					echo "</tr>";
 				}
 			?>

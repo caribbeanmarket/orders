@@ -24,23 +24,23 @@
 	if($_SESSION['orders']['role'] == 7)
 	{
 		if($data['report'][0]['status'] == 0){
-			echo '<button type="button" class="btn btn-primary single"><a style="color:white" href="/ordersnew/public/reports/close/'.$data['report'][0]['report_id'].'/1"><span class="glyphicon glyphicon-remove"></span> Close</a></button>';			
+			echo '<button type="button" class="btn btn-primary single"><a style="color:white" href="/orders/public/reports/close/'.$data['report'][0]['report_id'].'/1"><span class="glyphicon glyphicon-remove"></span> Close</a></button>';			
 		}
 		else
 		{
-			echo '<button type="button" class="btn btn-primary single"><a style="color:white" href="/ordersnew/public/reports/close/'.$data['report'][0]['report_id'].'/0"><span class="glyphicon glyphicon-remove"></span> Open</a></button>';
+			echo '<button type="button" class="btn btn-primary single"><a style="color:white" href="/orders/public/reports/close/'.$data['report'][0]['report_id'].'/0"><span class="glyphicon glyphicon-remove"></span> Open</a></button>';
 		}
 	}
 ?>
 	<?php if($_SESSION['orders']['role'] == 8) : ?>
 	<?php else :  ?>
-		<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/ordersnew/public/reports/edit/<?= $data['report'][0]['report_id']?>"><span class="glyphicon glyphicon-pencil"></span> Edit</a></button>
+		<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/orders/public/reports/edit/<?= $data['report'][0]['report_id']?>"><span class="glyphicon glyphicon-pencil"></span> Edit</a></button>
 	<?php endif; ?>
-	<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/ordersnew/public/reports/duplicate/<?= $data['report'][0]['report_id']?>"><span class="glyphicon glyphicon-duplicate"></span> Duplicate</a></button>
-	<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/ordersnew/public/export/reportExportSection/<?= $data['report'][0]['report_id']?>"><span class="glyphicon glyphicon-export"></span> Export</a></button>
-	<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/ordersnew/public/reports"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></button>
-	<button type="button" class="btn btn-primary single"><a style="color:white" href="/ordersnew/public/reports/single/<?= $data['report_id']?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a></button>
-	<button type="button" class="btn btn-success single"><a style="color:white" href="/ordersnew/public/reports/single/<?= $data['report_id']?>"><span class="glyphicon glyphicon-filter"></span> Filter by Vendor</a></button>
+	<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/orders/public/reports/duplicate/<?= $data['report'][0]['report_id']?>"><span class="glyphicon glyphicon-duplicate"></span> Duplicate</a></button>
+	<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/orders/public/export/reportExportSection/<?= $data['report'][0]['report_id']?>"><span class="glyphicon glyphicon-export"></span> Export</a></button>
+	<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/orders/public/reports"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></button>
+	<button type="button" class="btn btn-primary single"><a style="color:white" href="/orders/public/reports/single/<?= $data['report_id']?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a></button>
+	<button type="button" class="btn btn-success single"><a style="color:white" href="/orders/public/reports/single/<?= $data['report_id']?>"><span class="glyphicon glyphicon-filter"></span> Filter by Vendor</a></button>
 </div>
 <table class="table table-bordered">
 	<thead>
@@ -125,9 +125,9 @@
 						echo "<tr id='".$data['report'][$i]['id']."' class='bg-danger'>";
 						if($i > 0)
 			  			{
-			  				echo "<td class = 'tdminus'><a href='/ordersnew/public/reports/delete_item/".$data['report'][$i]['id']."/".$data['report'][$i]['report_id']."/".$data['report'][$i-1]['upc']."'><span class='glyphicon glyphicon-minus'></span></a></td>";
+			  				echo "<td class = 'tdminus'><a href='/orders/public/reports/delete_item/".$data['report'][$i]['id']."/".$data['report'][$i]['report_id']."/".$data['report'][$i-1]['upc']."'><span class='glyphicon glyphicon-minus'></span></a></td>";
 			  			}else{
-			  				echo "<td class = 'tdminus'><a href='/ordersnew/public/reports/delete_item/".$data['report'][$i]['id']."/".$data['report'][$i]['report_id']."'><span class='glyphicon glyphicon-minus'></span></a></td>";
+			  				echo "<td class = 'tdminus'><a href='/orders/public/reports/delete_item/".$data['report'][$i]['id']."/".$data['report'][$i]['report_id']."'><span class='glyphicon glyphicon-minus'></span></a></td>";
 			  			}
 						if(!empty($data['upcPriceCompare']) && $data['upc'] == $data['report'][$i]['upc'])
 			  			{
@@ -166,9 +166,9 @@
 						echo "<tr id='".$data['report'][$i]['id']."'>";
 						if($i > 0)
 			  			{
-			  				echo "<td class = 'tdminus'><a href='/ordersnew/public/reports/delete_item/".$data['report'][$i]['id']."/".$data['report'][$i]['report_id']."/".$data['report'][$i-1]['upc']."'><span class='glyphicon glyphicon-minus'></span></a></td>";
+			  				echo "<td class = 'tdminus'><a href='/orders/public/reports/delete_item/".$data['report'][$i]['id']."/".$data['report'][$i]['report_id']."/".$data['report'][$i-1]['upc']."'><span class='glyphicon glyphicon-minus'></span></a></td>";
 			  			}else{
-			  				echo "<td class = 'tdminus'><a href='/ordersnew/public/reports/delete_item/".$data['report'][$i]['id']."/".$data['report'][$i]['report_id']."'><span class='glyphicon glyphicon-minus'></span></a></td>";
+			  				echo "<td class = 'tdminus'><a href='/orders/public/reports/delete_item/".$data['report'][$i]['id']."/".$data['report'][$i]['report_id']."'><span class='glyphicon glyphicon-minus'></span></a></td>";
 			  			}
 						if(!empty($data['upcPriceCompare']) && $data['upc'] == $data['report'][$i]['upc'])
 			  			{
@@ -176,7 +176,7 @@
 			  			}
 			  			else
 			  			{
-			  				echo "<td><a href = '/ordersnew/public/reports/single/".$data['report_id']."/".$data['report'][$i]['upc']."/".$data['report'][$i]['upc']."'>".$data['report'][$i]['upc']."</a></td>";
+			  				echo "<td><a href = '/orders/public/reports/single/".$data['report_id']."/".$data['report'][$i]['upc']."/".$data['report'][$i]['upc']."'>".$data['report'][$i]['upc']."</a></td>";
 			  			}
 			  			echo "<td id='".$data['report'][$i]['upc']."' class='certcode'>".$data['report'][$i]['itemcode']."</td>";
 			  			echo "<td>".$data['report'][$i]['brand']."</td>";

@@ -21,7 +21,7 @@
 			include "importMenu.php";
 		}
 	?>
-	<form method="POST" action="/ordersnew/public/reports/add_item" class="form-inline" id="newItemsForm">
+	<form method="POST" action="/orders/public/reports/add_item" class="form-inline" id="newItemsForm">
 		<div class="form-group">
 		    <label class="sr-only" for="name">Report name</label>
 		    <?php  
@@ -74,9 +74,9 @@
 		    	}
 		    ?>
 	  	</div>
-	  	<a style="color:white" href="/ordersnew/public/reports/reset" id="resetButton"><button type="button" class="btn btn-danger" id="reset" name="reset" style="margin-right:10px"><span class="glyphicon glyphicon-refresh"> </span> DELETE</button></a>
-	  	<a style="color:white" href="/ordersnew/public/reports/addItems"><button type="button" class="btn btn-warning" id="reset" name="reset"  style="margin-right:10px"><span class="glyphicon glyphicon-repeat"> </span> UPDATE</button></a>
-	  	<a style="color:white" href="/ordersnew/public/reports/save_report"><button type="button" class="btn btn-success" id="save" name="save"><span class="glyphicon glyphicon-save"> </span> SAVE</button></a>
+	  	<a style="color:white" href="/orders/public/reports/reset" id="resetButton"><button type="button" class="btn btn-danger" id="reset" name="reset" style="margin-right:10px"><span class="glyphicon glyphicon-refresh"> </span> DELETE</button></a>
+	  	<a style="color:white" href="/orders/public/reports/addItems"><button type="button" class="btn btn-warning" id="reset" name="reset"  style="margin-right:10px"><span class="glyphicon glyphicon-repeat"> </span> UPDATE</button></a>
+	  	<a style="color:white" href="/orders/public/reports/save_report"><button type="button" class="btn btn-success" id="save" name="save"><span class="glyphicon glyphicon-save"> </span> SAVE</button></a>
 	    <table class="table">
 		  <thead>
 		  	<tr><th colspan="17">NEW REPORT</th></tr>
@@ -127,7 +127,7 @@
 			  			echo "<td></td>";
 			  			echo "<td></td>";
 			  			echo "<td></td>";
-			  			echo "<td class = 'tdminus'><a href='/ordersnew/public/reports/removeItem/".$key."'><span class='glyphicon glyphicon-minus'></span></a></td>";
+			  			echo "<td class = 'tdminus'><a href='/orders/public/reports/removeItem/".$key."'><span class='glyphicon glyphicon-minus'></span></a></td>";
 			  			echo "</tr>";
 		  			}
 		  			else
@@ -167,7 +167,7 @@
 			  			echo "<td>".$value['tpr']."</td>";
 			  			echo "<td>".$value['tprStart']."</td>";
 			  			echo "<td>".$value['tprEnd']."</td>";
-			  			echo "<td class = 'tdminus'><a href='/ordersnew/public/reports/removeItem/".$key."/".$next."'><span class='glyphicon glyphicon-minus'></span></a></td>";
+			  			echo "<td class = 'tdminus'><a href='/orders/public/reports/removeItem/".$key."/".$next."'><span class='glyphicon glyphicon-minus'></span></a></td>";
 			  			echo "</tr>";
 			  			$next = $key;
 		  			}

@@ -86,7 +86,7 @@ class Controller{
 	{
 		if(!isset($_SESSION["orders"]['id']))
 		{
-			header('Location: /ordersnew/public/login');
+			header('Location: /orders/public/login');
 		}
 	}
 
