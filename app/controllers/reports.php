@@ -96,7 +96,11 @@ class reports extends Controller{
 					$items[$i]['expiration_date'] = null;
 					$_SESSION["report"]["items"][$items[$i]["UPC"]] = $items[$i];
 				}
-				$_SESSION["report"]['name']  = "[ " . $items[0]['VdrNo'] . " - " . $items[0]['VdrName'] . " ]";
+				if(!empty($items[0])){
+					$_SESSION["report"]['name']  = "[ " . $items[0]['VdrNo'] . " - " . $items[0]['VdrName'] . " ]";
+				}else{
+					$_SESSION["report"]['name']  = "[ N/A ]";
+				}
 				$_SESSION["report"]['addItems'] = 'disabled';
 				$_SESSION["report"]['type'] = 1;
 			}	
@@ -119,7 +123,11 @@ class reports extends Controller{
 				$items[$i]['expiration_date'] = null;
 				$_SESSION["report"]["items"][$items[$i]["UPC"]] = $items[$i];
 			}
-			$_SESSION["report"]['name']  = "[ " . $items[0]['SctNo'] . " - " . $items[0]['SctName'] . " ]";
+			if(!empty($items[0])){
+				$_SESSION["report"]['name']  = "[ " . $items[0]['SctNo'] . " - " . $items[0]['SctName'] . " ]";
+			}else{
+				$_SESSION["report"]['name']  = "[ N/A ]";
+			}
 			$_SESSION["report"]['addItems'] = 'disabled';
 			$_SESSION["report"]['type'] = 2;
 		}
@@ -142,7 +150,12 @@ class reports extends Controller{
 				$items[$i]['expiration_date'] = null;
 				$_SESSION["report"]["items"][$items[$i]["UPC"]] = $items[$i];
 			}
-			$_SESSION["report"]['name']  = "[ " . $items[0]['VdrNo'] . " - " . $items[0]['VdrName'] . " ] - [ " . $items[0]['SctNo'] . " - " . $items[0]['SctName'] . " ]";
+			if(!empty($items[0])){
+				$_SESSION["report"]['name']  = "[ " . $items[0]['VdrNo'] . " - " . $items[0]['VdrName'] . " ] - [ " . $items[0]['SctNo'] . " - " . $items[0]['SctName'] . " ]";
+			}else{
+				$_SESSION["report"]['name']  = "[ N/A ]";
+			}
+			
 			$_SESSION["report"]['addItems'] = 'disabled';
 			$_SESSION["report"]['type'] = 3;
 		}

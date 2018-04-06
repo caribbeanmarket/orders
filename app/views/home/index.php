@@ -22,12 +22,12 @@
 		}
 	?>
 	<form method="POST" action="/orders/public/reports/add_item" class="form-inline" id="newItemsForm">
-		<div class="form-group">
+		<div class="form-group" style="width:250px">
 		    <label class="sr-only" for="name">Report name</label>
 		    <?php  
 		    	if(!empty($_SESSION["report"]["name"]))
 		    	{
-		    		echo '<input type="text" class="form-control newReportEdit" name="name" id="name" placeholder="Report name" value = "'.$_SESSION["report"]["name"].'">';
+		    		echo '<input type="text" class="form-control newReportEdit" name="name" id="name" style="width:100%" placeholder="Report name" value = "'.$_SESSION["report"]["name"].'">';
 		    	}
 		    	else
 		    	{

@@ -235,4 +235,7 @@ jQuery(function($){
 	$("#resetButton").click(function(){
 		return confirm("Are you sure you would like to reset this report?");
 	})
+
+
+	$('#report_result').DataTable({  });
 });

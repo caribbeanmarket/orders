@@ -22,7 +22,7 @@
 	
 	<table class="table table-bordered">
 		  <thead>
-		  	<tr><th colspan="<?= $colspan ?>">REPORTS</th></tr>
+		  	<tr><th colspan="<?= $colspan ?>">ORDERS</th></tr>
 		  	<tr>
 		  	<?php  
 	  		if($_SESSION['orders']['role'] == 7)
@@ -30,8 +30,8 @@
 	  			echo '<th class="tdminus"></th>';
 	  		}
 		  	?>
-			  	<th>REPORT NAME</th>
-			  	<th>REPORT DATE</th>
+			  	<th>ORDER NAME</th>
+			  	<th>ORDER DATE</th>
 			  	<th>SALES FROM DATE</th>
 			  	<th>SALES TO DATE</th>
 			  	<th>USER</th>
