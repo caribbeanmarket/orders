@@ -279,6 +279,59 @@ class brdata extends Model{
 	}
 
 
+	public function get_vendorReportRole($vendorNumber, $sections, $today, $from, $to)
+	{
+		$condition = '';
+		for($i=0;$i<count($sections);$i++){
+			if($condition == ''){
+				$condition .= " AND ( i.Department = '".$sections[$i]. "'";
+			}else{
+				$condition .= " OR i.Department = '".$sections[$i]. "'";
+			}
+		}
+		$condition .= ' )';
+
+		$SQL = "SELECT  vc.UPC, v.Vendor AS VdrNo, v.VendorName AS VdrName, vc.VendorItem AS CertCode, vc.CaseCost, p.TPRPrice AS tpr, p.TPRStartDate AS tprStart, p.TPREndDate AS tprEnd,
+				i.Brand, vc.Pack, i.SizeAlpha, i.Department AS SctNo, i.MajorDept AS DptNo, i.Description AS ItemDescription, p.BasePrice as Retail,
+				d.Description AS SctName, md.Description AS DptName, 
+				(SELECT TOP 1 id.Date FROM dbo.InventoryDetail id WHERE id.RecordType = 'R' AND id.UPC=vc.UPC AND id.Vendor = v.Vendor ORDER BY id.LastUpdated DESC, id.Date DESC) AS lastReceivingDate,
+				ISNULL((SELECT SUM(id.Units) FROM dbo.InventoryDetail id WHERE id.RecordType = 'R' AND id.UPC=vc.UPC  AND id.Date = 
+				(SELECT TOP 1 id.Date FROM dbo.InventoryDetail id WHERE id.RecordType = 'R' AND id.UPC=vc.UPC AND id.Vendor = v.Vendor ORDER BY id.LastUpdated DESC, id.Date DESC)),0) AS lastReceiving,
+				(SELECT SUM(im.QtySold) FROM dbo.ItemMovement im 
+				WHERE im.Date BETWEEN '".$from."' AND '".$to."' AND im.UPC = p.UPC) AS sales,
+				ISNULL((SELECT SUM(id.Units) FROM dbo.InventoryDetail id WHERE id.RecordType = 'R'  AND id.Vendor=vc.Vendor AND id.UPC=vc.UPC AND id.Date = (SELECT TOP 1 id.Date FROM dbo.InventoryDetail id WHERE id.RecordType = 'R' AND id.UPC=p.UPC   AND id.Vendor=vc.Vendor ORDER BY id.LastUpdated DESC, id.Date DESC)),0) AS lastReceiving,
+				
+				(SELECT TOP 1 ISNULL((SELECT TOP 1 ISNULL((SELECT TOP 1 id.Units FROM dbo.InventoryDetail id WHERE UPC= p.UPC AND id.RecordType = 'P' ORDER BY id.Date DESC, id.LastUpdated DESC),0)
+				+ ISNULL((SELECT SUM(Units) FROM dbo.InventoryDetail WHERE RecordType = 'A' AND ((Date > (SELECT TOP 1 Date FROM dbo.InventoryDetail id 
+				WHERE id.RecordType = 'P' AND id.UPC = p.UPC ORDER BY Date DESC, LastUpdated DESC)) OR (Date = (SELECT TOP 1 Date FROM dbo.InventoryDetail id 
+				WHERE id.RecordType = 'P' AND id.UPC = p.UPC ORDER BY Date DESC, LastUpdated DESC)) AND LastUpdated > (SELECT TOP 1 LastUpdated FROM dbo.InventoryDetail id 
+				WHERE id.RecordType = 'P' AND id.UPC = p.UPC ORDER BY Date DESC, LastUpdated DESC) OR (SELECT TOP 1 Date FROM dbo.InventoryDetail id 
+				WHERE id.RecordType = 'P' AND id.UPC = p.UPC ORDER BY Date DESC, LastUpdated DESC) IS NULL) AND UPC= p.UPC),0) 
+				- ISNULL((SELECT SUM(QtySold) FROM dbo.ItemMovement WHERE Date > (SELECT TOP 1 Date FROM dbo.InventoryDetail id 
+				WHERE id.RecordType = 'P' AND id.UPC = p.UPC ORDER BY Date DESC, LastUpdated DESC) AND UPC= p.UPC),0) 
+				+ ISNULL((SELECT SUM(Units) FROM dbo.InventoryDetail WHERE RecordType = 'R' AND (LastUpdated > (SELECT TOP 1 LastUpdated FROM dbo.InventoryDetail id 
+				WHERE id.RecordType = 'P' AND id.UPC = p.UPC ORDER BY Date DESC, LastUpdated DESC) OR (SELECT TOP 1 LastUpdated FROM dbo.InventoryDetail id 
+				WHERE id.RecordType = 'P' AND id.UPC = p.UPC ORDER BY Date DESC, LastUpdated DESC) IS NULL) AND UPC=p.UPC),0) 
+				FROM dbo.InventoryDetail WHERE UPC=p.UPC),99999) FROM dbo.InventoryDetail) AS onhand, 
+
+				(vc.CaseCost / NULLIF(vc.Pack, 0)) AS unitPrice
+				FROM dbo.Vendors v 
+				RIGHT JOIN dbo.VendorCost vc ON vc.Vendor = v.Vendor
+				LEFT JOIN dbo.Price p ON p.UPC = vc.UPC
+				INNER JOIN dbo.Item i ON i.UPC = vc.UPC
+				INNER JOIN dbo.Departments d ON d.Department = i.Department
+				INNER JOIN dbo.MajorDept md ON md.MajorDept = i.MajorDept
+				WHERE v.Vendor = '".$vendorNumber."' AND p.Store = '00000A' ".$condition."
+				ORDER BY i.Department, i.Description, i.SizeAlpha ASC, vc.Pack DESC;";
+		// Execute query
+		$results = $this->db->query($SQL);
+		// print_r($this->db->errorInfo());die();
+		$report = $results->fetchall(PDO::FETCH_BOTH);
+
+		return $report ;
+	}
+
+
 	public function get_LimitedVendorReport($vendorNumber, $today)
 	{
 		$SQL = "SELECT v.Vendor, vc.UPC, vc.VendorItem AS CertCode, 

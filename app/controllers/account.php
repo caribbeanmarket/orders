@@ -32,7 +32,7 @@ class account extends Controller{
 		{
 			foreach($_POST AS $key => $value)
 			{
-				if(empty($value))
+				if(empty($value) && $key != 'vendors' && $key != 'sections')
 				{
 					$errormessage = "<p class='bg-danger'>You must complete all the fields</p>";
 					$this->view('account', array('users' => $users, 'error' => $errormessage, "menu" => $this->userRole, "exportURL" => $this->exportURL));
@@ -69,7 +69,7 @@ class account extends Controller{
 		$errormessage = "";
 		if(isset($_POST['submit']))
 		{
-			$this->users->updateUser($_POST['firstname'], $_POST['lastname'], $_POST['username'], $_POST['email'], $_POST['role'], $_POST['vendors'], $_POST['id']);
+			$this->users->updateUser($_POST['firstname'], $_POST['lastname'], $_POST['username'], $_POST['email'], $_POST['role'], $_POST['vendors'], $_POST['sections'], $_POST['id']);
 		}
 		$users = $this->users->getUsers();
 		$user = $this->users->getUserById($id);

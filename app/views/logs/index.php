@@ -1,6 +1,6 @@
-<?php include_once '/../header.php'; ?>
+<?php require 'C:\wamp\www\orders\app\views\header.php'; ?>
 
-<?php include_once '/../menu.php'; ?>
+<?php require 'C:\wamp\www\orders\app\views\menu.php'; ?>
 
 <table class="table table-bordered">
 <thead>
@@ -19,5 +19,4 @@
 </tbody>
 </table>
 
-
-<?php include_once '/../footer.php'; ?>
+<?php require 'C:\wamp\www\orders\app\views\footer.php'; ?>

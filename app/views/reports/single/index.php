@@ -1,6 +1,6 @@
-<?php include_once '/../../header.php'; ?>
+<?php require 'C:\wamp\www\orders\app\views\header.php'; ?>
 
-<?php include_once '/../../menu.php'; ?>
+<?php require 'C:\wamp\www\orders\app\views\menu.php'; ?>
 
 <?php 
 	$status = array(0 => "OPEN", 1 => "CLOSED");
@@ -33,11 +33,17 @@
 	}
 ?>
 	<?php if($_SESSION['orders']['role'] == 8) : ?>
+
 	<?php else :  ?>
-		<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/orders/public/reports/edit/<?= $data['report'][0]['report_id']?>"><span class="glyphicon glyphicon-pencil"></span> Edit</a></button>
+		<?php if($_SESSION['orders']['role'] == 8 && $data['report'][0]['tag_val'] == 0) : ?>
+		<?php else : ?>
+			<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/orders/public/reports/edit/<?= $data['report'][0]['report_id']?>"><span class="glyphicon glyphicon-pencil"></span> Edit</a></button>
+		<?php endif; ?>
 	<?php endif; ?>
 	<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/orders/public/reports/duplicate/<?= $data['report'][0]['report_id']?>"><span class="glyphicon glyphicon-duplicate"></span> Duplicate</a></button>
+	<?php if($_SESSION['orders']['role'] != 9) : ?>
 	<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/orders/public/export/reportExport/<?= $data['report'][0]['report_id']?>"><span class="glyphicon glyphicon-export"></span> Export</a></button>
+	<?php endif; ?>
 	<button type="button" class="btn btn-primary single"><a style="color:white" target="_blank" href="/orders/public/reports"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></button>
 	<button type="button" class="btn btn-primary single"><a style="color:white" href="/orders/public/reports/single/<?= $data['report_id']?>"><span class="glyphicon glyphicon-refresh"></span> Refresh</a></button>
 	<button type="button" class="btn btn-success single"><a style="color:white" href="/orders/public/reports/singleSection/<?= $data['report_id']?>"><span class="glyphicon glyphicon-filter"></span> Filter by Section</a></button>
@@ -72,6 +78,7 @@
 		  	<th>SALES</th>
 		  	<th>VDR NO</th>
 		  	<th>VDR NAME</th>
+		  	<th></th>
 	  	</tr>
 	  </thead>
 	  <tbody>
@@ -117,6 +124,7 @@
 			            <td></td>
 			            <td></td>
 			            <td></td>
+			            <td></td>
 			            <td></td>';
 			            echo '</tr>';
 					}
@@ -140,6 +148,7 @@
 			  			echo "<td  class='certcode'></td>";
 			  			echo "<td></td>";
 			  			echo "<td class='textLeft'>".$data['report'][$i]['description']."</td>";
+			  			echo "<td></td>";
 			  			echo "<td></td>";
 			  			echo "<td></td>";
 			  			echo "<td></td>";
@@ -198,6 +207,12 @@
 			  			echo "<td>".$data['report'][$i]['sales']."</td>";
 			  			echo "<td class='vdrNo'>".$data['report'][$i]['vdrno']."</td>";
 			  			echo "<td class='vdrName'>".$data['report'][$i]['vdrname']."</td>";
+
+			  			if($data['report'][$i]['lastorderdate']." 00:00:00.000" > $data['report'][$i]['timestamp']){
+			  				echo "<td style='background:green'></td>";
+			  			}else{
+			  				echo "<td style='background:red'></td>";
+			  			}
 			  			
 			  			echo "</tr>";
 
@@ -240,7 +255,7 @@
 						  			echo "<td class = 'lod'>".$data['upcPriceCompare'][$j]['lastReceivingDate']."</td>";
 						  			echo "<td>".$data['upcPriceCompare'][$j]['sales']."</td>";
 						  			echo "<td class = 'vendorno'>".$data['upcPriceCompare'][$j]['VdrNo']."</td>";
-						  			echo "<td class = 'vendor'>".$data['upcPriceCompare'][$j]['VdrName']."</td>";
+						  			echo "<td></td>";
 					  				echo "</tr>";
 			  					}
 			  					
@@ -260,4 +275,4 @@
 	  </tfoot>
 </table>
 </div>
-<?php include_once '/../../footer.php'; ?>
+<?php require 'C:\wamp\www\orders\app\views\footer.php'; ?>

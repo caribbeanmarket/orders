@@ -24,7 +24,7 @@ class Controller{
 		date_default_timezone_set('America/Dominica');
 		$this->userRole = $this->setRole();
 		$this->received_status = array(1 => "New", 2 => "Pending", 3 => "Received", 4 => "Ignored");
-		$this->roles = array(5 => "menuAdmin", 6 => "menuOne", 7 => "menuTwo", 8 => "menuZero");
+		$this->roles = array(5 => "menuAdmin", 6 => "menuOne", 7 => "menuTwo", 8 => "menuZero", 9 => "menuZero");
 	}
 
 	public function model($model)
@@ -93,7 +93,7 @@ class Controller{
 	public function setRole()
 	{
 		$role = "";
-		$this->roles = array(5 => "menuAdmin", 6 => "menuOne", 7 => "menuTwo", 8 => "menuZero");
+		$this->roles = array(5 => "menuAdmin", 6 => "menuOne", 7 => "menuTwo", 8 => "menuZero", 9 => "menuZero");
 		if(isset($_SESSION["orders"]['role']))
 		{
 			$role = $this->roles[$_SESSION["orders"]['role']];

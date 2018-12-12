@@ -1,6 +1,6 @@
-<?php include_once '/../../header.php'; ?>
+<?php require 'C:\wamp\www\orders\app\views\header.php'; ?>
 
-<?php include_once '/../../menu.php'; ?>
+<?php require 'C:\wamp\www\orders\app\views\menu.php'; ?>
 
 <div class="error"><?php echo $data['error']; ?></div>
 
@@ -13,4 +13,4 @@
 	}
 ?>
 
-<?php include_once '/../../footer.php'; ?>
+<?php require 'C:\wamp\www\orders\app\views\footer.php'; ?>
