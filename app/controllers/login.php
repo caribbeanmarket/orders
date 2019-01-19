@@ -82,7 +82,7 @@ class login extends Controller{
 		
 		$_SESSION["orders"]["vendors"] = explode(",", $user['vendors']);
 		for($i=0;$i<count($_SESSION["orders"]["vendors"]);$i++){
-			$_SESSION["orders"]["vendors"][$i] = $this->completeSection($_SESSION["orders"]["vendors"][$i]);
+			$_SESSION["orders"]["vendors"][$i] = $this->completeVendor($_SESSION["orders"]["vendors"][$i]);
 		}
 
 		$_SESSION["orders"]["sections"] = explode(",", $user['sections']);

@@ -6,12 +6,13 @@
 	</form>
 
 	<?php else : ?>
-
+		<?php if($_SESSION['orders']['role'] != 9) : ?>
 	<form class="form-inline" id = "updExcelImportForm" method="post" enctype="multipart/form-data" action = "/orders/public/reports/addExcel">
 		<label class="btn btn-primary btn-file">
 		<span class="glyphicon glyphicon-import"></span> IMPORT FROM EXCEL <input type="file" style="display: none;" name="upcs" id="upcExcelImport">
 		</label>
 	</form>
+		<?php endif; ?>
 
 	<form class="form-inline" id = "vendorSectionImport" method="post" action = "/orders/public/reports/importVendorSection">
 		 <a style="color:white" href="#"><button type="button" class="btn btn-primary" id="vendorSectionImportButton" ><span class="glyphicon glyphicon-import"> </span> VDR - SCT</button></a>

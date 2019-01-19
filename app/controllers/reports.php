@@ -87,10 +87,15 @@ class reports extends Controller{
 			if(empty($_SESSION['orders']['vendors'])){
 				$_SESSION['orders']['vendors'] = array();
 			}
-			if((in_array($_POST["vendorNumber"], $_SESSION['orders']['vendors']) || $_SESSION['orders']['role'] != 8)){
+			// var_dump($_SESSION['orders']);
+			// var_dump($_POST['vendorNumber']);
+			if((in_array($_POST["vendorNumber"], $_SESSION['orders']['vendors']) || ($_SESSION['orders']['role'] != 8 && $_SESSION['orders']['role'] != 9))){
+				// die('here');
 				if($_SESSION['orders']['role'] == 9){
+					// die("=9");
 					$items = $this->brdata->get_vendorReportRole($_POST["vendorNumber"], $_SESSION['orders']['sections'], $this->today, $_SESSION["report"]["date_from"], $_SESSION["report"]["date_to"]);
 				}else{
+					// die("not= 9");
 					$items = $this->brdata->get_vendorReport($_POST["vendorNumber"], $this->today, $_SESSION["report"]["date_from"], $_SESSION["report"]["date_to"]);
 				}
 				
