@@ -532,6 +532,7 @@ class reports extends Controller{
 
 	public function addItems()
 	{
+		
 		foreach($_SESSION["report"]["items"] AS $key => $value)
 		{
 			$items = $this->brdata->get_itemAllVendors($value['UPC'], $this->today, $_SESSION["report"]["date_to"], $_SESSION["report"]["date_from"]);
@@ -540,17 +541,23 @@ class reports extends Controller{
 				// debug($items);
 				// die();
 				if($items){
-					$items['order'] = null;
-					$items['expiration'] = null;
-					$items['expiration_date'] = null;
+					if(!empty($_SESSION["report"]["items"][$items["UPC"]])){
+						$items['order'] = $_SESSION["report"]["items"][$items["UPC"]]['order'];
+						$items['expiration'] = $_SESSION["report"]["items"][$items["UPC"]]['expiration'];
+						$items['expiration_date'] = $_SESSION["report"]["items"][$items["UPC"]]['expiration_date'];
+					}
 					$_SESSION["report"]["items"][$items["UPC"]] = $items;
 				}
 			}else{
 				$items = $this->returnItemWithCheapestVendor($items);
 				if(!empty($items)){
-					$items['order'] = null;
-					$items['expiration'] = null;
-					$items['expiration_date'] = null;
+					if(!empty($_SESSION["report"]["items"][$items["UPC"]])){
+						$items['order'] = $_SESSION["report"]["items"][$items["UPC"]]['order'];
+						$items['expiration'] = $_SESSION["report"]["items"][$items["UPC"]]['expiration'];
+						$items['expiration_date'] = $_SESSION["report"]["items"][$items["UPC"]]['expiration_date'];
+					}
+					// var_dump($items['order']);
+					
 					$_SESSION["report"]["items"][$items["UPC"]] = $items;
 				}
 				else
@@ -584,6 +591,7 @@ class reports extends Controller{
 				}
 			}	
 		}
+		// die();
 		header('Location: /orders/public/home');
 	}
 
@@ -621,6 +629,8 @@ class reports extends Controller{
 	public function save_report()
 	{
 		unset($_SESSION['error']);
+		// var_dump($_POST);
+		// die();
 		if(!empty($_SESSION['report']))
 		{
 			if(!empty($_SESSION['report']["name"]))
@@ -634,6 +644,7 @@ class reports extends Controller{
 							if(count($_SESSION['report']["items"]) > 0)
 							{
 								// save report information
+								$this->report->update_report($_SESSION['report']['id'], $_SESSION['report']['name'], $_SESSION['report']['date_from'], $_SESSION['report']['date_to']);
 								if(!empty($_SESSION['report']['id']))
 								{
 									// delete report items

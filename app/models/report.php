@@ -170,6 +170,12 @@ class report extends Model{
 		$this->db->query($update);	
 	}
 
+	public function update_report($id, $name, $date_from, $date_to)
+	{
+		$update = "UPDATE reports SET name = '".$name."', date_from = '".$date_from."', date_to = '".$date_to."' WHERE id = " . $id;
+		$this->db->query($update);	
+	}
+
 	public function update_report_vendor($id, $vdrno, $vdrname, $casecost, $certcode, $lastorder, $lastorderdate, $pack)
 	{
 		$update = "UPDATE items SET vdrno ='" . $vdrno . "', vdrname = '".$vdrname."', casecost = '".$casecost."', 
