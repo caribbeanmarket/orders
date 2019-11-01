@@ -13,7 +13,7 @@ class users extends Model{
 
 	public function getUsers()
 	{
-		$SQL = "SELECT * FROM users WHERE role=5 OR role=6 OR role=7 OR role=8 ORDER BY lastname";
+		$SQL = "SELECT * FROM users WHERE role=5 OR role=6 OR role=7 OR role=8 OR role=9 ORDER BY lastname";
 		$result = $this->db->query($SQL);
 		// print_r($this->db->errorInfo());
 		return $result->fetchall(PDO::FETCH_BOTH);
@@ -49,8 +49,8 @@ class users extends Model{
 
 	public function setUser($user)
 	{
-		$insert = $this->db->prepare("INSERT INTO users (firstname, lastname, username, password, email, role, vendors)
-	    VALUES (:firstname, :lastname, :username, :password, :email, :role, :vendors)");
+		$insert = $this->db->prepare("INSERT INTO users (firstname, lastname, username, password, email, role, vendors, sections)
+	    VALUES (:firstname, :lastname, :username, :password, :email, :role, :vendors, :sections)");
 
 	    $insert->bindParam(':firstname', $user['firstname']);
 	    $insert->bindParam(':lastname', $user['lastname']);
@@ -59,6 +59,7 @@ class users extends Model{
 	    $insert->bindParam(':email', $user['email']);
 	    $insert->bindParam(':role', $user['role']);
 	    $insert->bindParam(':vendors', $user['vendors']);
+	    $insert->bindParam(':sections', $user['sections']);
 
 	    $insert->execute();
 	    // print_r($this->db->errorInfo());
@@ -71,10 +72,10 @@ class users extends Model{
 		$this->db->query($delete);		
 	}
 
-	public function updateUser($firstname, $lastname, $username, $email, $role, $vendors, $id)
+	public function updateUser($firstname, $lastname, $username, $email, $role, $vendors, $sections, $id)
 	{
 		$update = "UPDATE users SET firstname ='" . $firstname . "', lastname = '".$lastname."', username = '".$username."', 
-		email = '".$email."', role = '".$role."', vendors = '".$vendors."' WHERE id =" . $id;
+		email = '".$email."', role = '".$role."', vendors = '".$vendors."', sections = '".$sections."' WHERE id =" . $id;
 		$this->db->query($update);	
 	}
 

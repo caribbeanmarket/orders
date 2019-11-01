@@ -42,7 +42,7 @@ class reports extends Controller{
 
 	public function index()
 	{
-		if($_SESSION['orders']['role'] == 8){
+		if($_SESSION['orders']['role'] == 8 || $_SESSION['orders']['role'] == 9|| $_SESSION['orders']['role'] == 5){
 			$reports = $this->report->get_reportsByUser($_SESSION['orders']['id']);
 		}else{
 			$reports = $this->report->get_reports();
@@ -87,8 +87,18 @@ class reports extends Controller{
 			if(empty($_SESSION['orders']['vendors'])){
 				$_SESSION['orders']['vendors'] = array();
 			}
-			if(in_array($_POST["vendorNumber"], $_SESSION['orders']['vendors']) || $_SESSION['orders']['role'] != 8){
-				$items = $this->brdata->get_vendorReport($_POST["vendorNumber"], $this->today, $_SESSION["report"]["date_from"], $_SESSION["report"]["date_to"]);
+			// var_dump($_SESSION['orders']);
+			// var_dump($_POST['vendorNumber']);
+			if((in_array($_POST["vendorNumber"], $_SESSION['orders']['vendors']) || ($_SESSION['orders']['role'] != 8 && $_SESSION['orders']['role'] != 9))){
+				// die('here');
+				if($_SESSION['orders']['role'] == 9){
+					// die("=9");
+					$items = $this->brdata->get_vendorReportRole($_POST["vendorNumber"], $_SESSION['orders']['sections'], $this->today, $_SESSION["report"]["date_from"], $_SESSION["report"]["date_to"]);
+				}else{
+					// die("not= 9");
+					$items = $this->brdata->get_vendorReport($_POST["vendorNumber"], $this->today, $_SESSION["report"]["date_from"], $_SESSION["report"]["date_to"]);
+				}
+				
 				for($i=0;$i<count($items);$i++)
 				{
 					$items[$i]['order'] = null;
@@ -115,21 +125,30 @@ class reports extends Controller{
 		{
 			unset($_SESSION["report"]["items"]);
 			$_POST["sectionNumber"] = $this->completeValue($_POST["sectionNumber"], 4);
-			$items = $this->brdata->get_sectionReport($_POST["sectionNumber"], $this->today, $_SESSION["report"]["date_from"], $_SESSION["report"]["date_to"]);
-			for($i=0;$i<count($items);$i++)
-			{
-				$items[$i]['order'] = null;
-				$items[$i]['expiration'] = null;
-				$items[$i]['expiration_date'] = null;
-				$_SESSION["report"]["items"][$items[$i]["UPC"]] = $items[$i];
+			
+			if(empty($_SESSION['orders']['sections'])){
+				$_SESSION['orders']['sections'] = array();
 			}
-			if(!empty($items[0])){
-				$_SESSION["report"]['name']  = "[ " . $items[0]['SctNo'] . " - " . $items[0]['SctName'] . " ]";
-			}else{
-				$_SESSION["report"]['name']  = "[ N/A ]";
+
+			if((in_array($_POST["sectionNumber"], $_SESSION['orders']['sections']) || $_SESSION['orders']['role'] != 9)){
+				$items = $this->brdata->get_sectionReport($_POST["sectionNumber"], $this->today, $_SESSION["report"]["date_from"], 
+					$_SESSION["report"]["date_to"]);
+			
+				for($i=0;$i<count($items);$i++)
+				{
+					$items[$i]['order'] = null;
+					$items[$i]['expiration'] = null;
+					$items[$i]['expiration_date'] = null;
+					$_SESSION["report"]["items"][$items[$i]["UPC"]] = $items[$i];
+				}
+				if(!empty($items[0])){
+					$_SESSION["report"]['name']  = "[ " . $items[0]['SctNo'] . " - " . $items[0]['SctName'] . " ]";
+				}else{
+					$_SESSION["report"]['name']  = "[ N/A ]";
+				}
+				$_SESSION["report"]['addItems'] = 'disabled';
+				$_SESSION["report"]['type'] = 2;
 			}
-			$_SESSION["report"]['addItems'] = 'disabled';
-			$_SESSION["report"]['type'] = 2;
 		}
 		header('Location: /orders/public/home');
 
@@ -141,23 +160,46 @@ class reports extends Controller{
 		{
 			unset($_SESSION["report"]["items"]);
 			$_POST["svendorNumber"] = $this->completeValue($_POST["svendorNumber"], 6);
-			$_POST["sctvendorNumber"] = $this->completeValue($_POST["sctvendorNumber"], 6);
-			$items = $this->brdata->get_vendorSectionReport($_POST["svendorNumber"], $_POST["sctvendorNumber"], $this->today, $_SESSION["report"]["date_to"], $_SESSION["report"]["date_from"]);
-			for($i=0;$i<count($items);$i++)
-			{
-				$items[$i]['order'] = null;
-				$items[$i]['expiration'] = null;
-				$items[$i]['expiration_date'] = null;
-				$_SESSION["report"]["items"][$items[$i]["UPC"]] = $items[$i];
+			$_POST["sctvendorNumber"] = $this->completeValue($_POST["sctvendorNumber"], 4);
+			if(empty($_SESSION['orders']['sections'])){
+				$_SESSION['orders']['sections'] = array();
 			}
-			if(!empty($items[0])){
-				$_SESSION["report"]['name']  = "[ " . $items[0]['VdrNo'] . " - " . $items[0]['VdrName'] . " ] - [ " . $items[0]['SctNo'] . " - " . $items[0]['SctName'] . " ]";
+
+			if((in_array($_POST["sctvendorNumber"], $_SESSION['orders']['sections']) || $_SESSION['orders']['role'] != 9)){
+				$items = $this->brdata->get_vendorSectionReport($_POST["svendorNumber"], $_POST["sctvendorNumber"], $this->today, $_SESSION["report"]["date_to"], $_SESSION["report"]["date_from"]);
+				for($i=0;$i<count($items);$i++)
+				{
+					$items[$i]['order'] = null;
+					$items[$i]['expiration'] = null;
+					$items[$i]['expiration_date'] = null;
+					$_SESSION["report"]["items"][$items[$i]["UPC"]] = $items[$i];
+				}
+				if(!empty($items[0])){
+					$_SESSION["report"]['name']  = "[ " . $items[0]['VdrNo'] . " - " . $items[0]['VdrName'] . " ] - [ " . $items[0]['SctNo'] . " - " . $items[0]['SctName'] . " ]";
+				}else{
+					$_SESSION["report"]['name']  = "[ N/A ]";
+				}
+				
+				$_SESSION["report"]['addItems'] = 'disabled';
+				$_SESSION["report"]['type'] = 3;
 			}else{
-				$_SESSION["report"]['name']  = "[ N/A ]";
+				$items = $this->brdata->get_vendorSectionReport($_POST["svendorNumber"], '9999', $this->today, $_SESSION["report"]["date_to"], $_SESSION["report"]["date_from"]);
+				for($i=0;$i<count($items);$i++)
+				{
+					$items[$i]['order'] = null;
+					$items[$i]['expiration'] = null;
+					$items[$i]['expiration_date'] = null;
+					$_SESSION["report"]["items"][$items[$i]["UPC"]] = $items[$i];
+				}
+				if(!empty($items[0])){
+					$_SESSION["report"]['name']  = "[ " . $items[0]['VdrNo'] . " - " . $items[0]['VdrName'] . " ] - [ " . $items[0]['SctNo'] . " - " . $items[0]['SctName'] . " ]";
+				}else{
+					$_SESSION["report"]['name']  = "[ N/A ]";
+				}
+				
+				$_SESSION["report"]['addItems'] = 'disabled';
+				$_SESSION["report"]['type'] = 3;
 			}
-			
-			$_SESSION["report"]['addItems'] = 'disabled';
-			$_SESSION["report"]['type'] = 3;
 		}
 		header('Location: /orders/public/home');
 
@@ -234,10 +276,14 @@ class reports extends Controller{
 		}
 		$name = $this->report->getReportName($id);
 		$report = $this->report->get_report($id);
+		// var_dump($report); 
+		// die();
 		if($upc != false)
 		{
 			$upcPriceCompare = $this->brdata->get_upcReport($upc, $this->today, $report[0]['date_from'], $report[0]['date_to']);
 			$this->UPCPriceCompareLog($name, $id, $upc);
+			// var_dump($upcPriceCompare);
+			// die();
 		}
 		else
 		{
@@ -490,6 +536,7 @@ class reports extends Controller{
 
 	public function addItems()
 	{
+		
 		foreach($_SESSION["report"]["items"] AS $key => $value)
 		{
 			$items = $this->brdata->get_itemAllVendors($value['UPC'], $this->today, $_SESSION["report"]["date_to"], $_SESSION["report"]["date_from"]);
@@ -498,17 +545,23 @@ class reports extends Controller{
 				// debug($items);
 				// die();
 				if($items){
-					$items['order'] = null;
-					$items['expiration'] = null;
-					$items['expiration_date'] = null;
+					if(!empty($_SESSION["report"]["items"][$items["UPC"]])){
+						$items['order'] = $_SESSION["report"]["items"][$items["UPC"]]['order'];
+						$items['expiration'] = $_SESSION["report"]["items"][$items["UPC"]]['expiration'];
+						$items['expiration_date'] = $_SESSION["report"]["items"][$items["UPC"]]['expiration_date'];
+					}
 					$_SESSION["report"]["items"][$items["UPC"]] = $items;
 				}
 			}else{
 				$items = $this->returnItemWithCheapestVendor($items);
 				if(!empty($items)){
-					$items['order'] = null;
-					$items['expiration'] = null;
-					$items['expiration_date'] = null;
+					if(!empty($_SESSION["report"]["items"][$items["UPC"]])){
+						$items['order'] = $_SESSION["report"]["items"][$items["UPC"]]['order'];
+						$items['expiration'] = $_SESSION["report"]["items"][$items["UPC"]]['expiration'];
+						$items['expiration_date'] = $_SESSION["report"]["items"][$items["UPC"]]['expiration_date'];
+					}
+					// var_dump($items['order']);
+					
 					$_SESSION["report"]["items"][$items["UPC"]] = $items;
 				}
 				else
@@ -542,6 +595,7 @@ class reports extends Controller{
 				}
 			}	
 		}
+		// die();
 		header('Location: /orders/public/home');
 	}
 
@@ -579,6 +633,8 @@ class reports extends Controller{
 	public function save_report()
 	{
 		unset($_SESSION['error']);
+		// var_dump($_POST);
+		// die();
 		if(!empty($_SESSION['report']))
 		{
 			if(!empty($_SESSION['report']["name"]))
@@ -594,6 +650,7 @@ class reports extends Controller{
 								// save report information
 								if(!empty($_SESSION['report']['id']))
 								{
+									$this->report->update_report($_SESSION['report']['id'], $_SESSION['report']['name'], $_SESSION['report']['date_from'], $_SESSION['report']['date_to']);
 									// delete report items
 									$this->report->delete_report_items($_SESSION['report']['id']);
 									foreach($_SESSION['report']["items"] as $key => $value)

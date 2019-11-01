@@ -2,6 +2,7 @@
 
 <?php include_once 'C:/wamp/www/orders/app/views/menu.php'; ?>
 
+
 <!-- NEW REPORT IN MAIN PAGE OF APPLICATION -->
 <div class="row">
 	<div class="col-md-4">
@@ -183,3 +184,4 @@
 </div>
 
 <?php include_once 'C:/wamp/www/orders/app/views/footer.php'; ?>
+

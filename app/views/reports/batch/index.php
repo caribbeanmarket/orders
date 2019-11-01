@@ -1,6 +1,7 @@
-<?php include_once 'C:/wamp/www/orders/app/views/header.php'; ?>
 
-<?php include_once 'C:/wamp/www/orders/app/views/menu.php'; ?>
+<?php require 'C:\wamp\www\orders\app\views\header.php'; ?>
+
+<?php require 'C:\wamp\www\orders\app\views\menu.php'; ?>
 
 <div class="row newReport">
 	<form method="POST" action="/orders/public/reports/add_item" class="form-inline" id="newItemsForm">

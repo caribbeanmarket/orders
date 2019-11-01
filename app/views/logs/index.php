@@ -2,6 +2,7 @@
 
 <?php include_once 'C:/wamp/www/orders/app/views/menu.php'; ?>
 
+
 <table class="table table-bordered">
 <thead>
 	<tr><th colspan = "2">Action Logs</th></tr>
@@ -21,3 +22,4 @@
 
 
 <?php include_once 'C:/wamp/www/orders/app/views/header.php'; ?>
+

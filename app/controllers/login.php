@@ -79,9 +79,15 @@ class login extends Controller{
 		$_SESSION["orders"]["firstname"] = $user['firstname'];
 		$_SESSION["orders"]["lastname"] = $user['lastname'];
 		$_SESSION["orders"]["role"] = $user['role'];
+		
 		$_SESSION["orders"]["vendors"] = explode(",", $user['vendors']);
 		for($i=0;$i<count($_SESSION["orders"]["vendors"]);$i++){
 			$_SESSION["orders"]["vendors"][$i] = $this->completeVendor($_SESSION["orders"]["vendors"][$i]);
+		}
+
+		$_SESSION["orders"]["sections"] = explode(",", $user['sections']);
+		for($i=0;$i<count($_SESSION["orders"]["sections"]);$i++){
+			$_SESSION["orders"]["sections"][$i] = $this->completeSection($_SESSION["orders"]["sections"][$i]);
 		}
 	}
 
@@ -94,6 +100,17 @@ class login extends Controller{
 			$value .= "0";
 		}
 		return $value.$vendor;
+	}
+
+	public function completeSection($section){
+		$total = 4;
+		$value = '';
+		$amount = strlen($section);
+		$toadd = $total - (int)$amount;
+		for($i=0;$i<$toadd;$i++){
+			$value .= "0";
+		}
+		return $value.$section;
 	}
 
 	private function rememberUser($post)

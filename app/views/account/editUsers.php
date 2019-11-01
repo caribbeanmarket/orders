@@ -1,10 +1,10 @@
 <?php  
-	$roles = array(7 => "Order 0", 6 => "Order 1", 5 => "Order 2", 8 => "Order 5");
+	$roles = array(7 => "Order 0", 6 => "Order 1", 5 => "Order 2", 8 => "Order 5", 9 => "Order 6");
 ?>
 <table class="table table-bordered">
 		<thead>
-			<tr><th colspan="7">Users</th></tr>
-			<tr><th>Last name</th><th>First name</th><th>Username</th><th>Email</th><th>Access</th><th>Vendors</th><th>Actions</th></tr>
+			<tr><th colspan="8">Users</th></tr>
+			<tr><th>Last name</th><th>First name</th><th>Username</th><th>Email</th><th>Access</th><th>Vendors</th><th>Sections</th><th>Actions</th></tr>
 			<form method = "POST" action = "/orders/public/account/index">
 				<tr><th><input type="text" class="form-control" name="lastname" placeholder="Last name" required></th>
 					<th><input type="text" class="form-control" name="firstname" placeholder="First name" required></th>
@@ -16,9 +16,11 @@
 							<option value = "6">Order 1</option>
 							<option value = "5">Order 2</option>
 							<option value = "8">Order 5</option>
+							<option value = "9">Order 6</option>
 						</select>
 					</th>
-					<th><input type="text" class="form-control" name="vendors" placeholder="Vendors" required></th>
+					<th><input type="text" class="form-control" name="vendors" placeholder="Vendors"></th>
+					<th><input type="text" class="form-control" name="sections" placeholder="Sections"></th>
 					<th><input type='submit' class="btn btn-default" value='Submit' name="submit"></th>
 				</tr>
 			</form>
@@ -36,6 +38,11 @@
 					echo "<td>" . $roles[$data['users'][$i]['role']] . "</td>";
 					if(!empty($data['users'][$i]['vendors'])){
 						echo "<td>" . $data['users'][$i]['vendors'] . "</td>";
+					}else{
+						echo "<td>ALL</td>";
+					}
+					if(!empty($data['users'][$i]['sections'])){
+						echo "<td>" . $data['users'][$i]['sections'] . "</td>";
 					}else{
 						echo "<td>ALL</td>";
 					}

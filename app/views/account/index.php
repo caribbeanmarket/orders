@@ -2,6 +2,7 @@
 
 <?php include_once 'C:/wamp/www/orders/app/views/menu.php'; ?>
 
+
 <div class="error"><?php echo $data['error']; ?></div>
 
 <?php  
