@@ -42,7 +42,7 @@ class reports extends Controller{
 
 	public function index()
 	{
-		if($_SESSION['orders']['role'] == 8 || $_SESSION['orders']['role'] == 9){
+		if($_SESSION['orders']['role'] == 8 || $_SESSION['orders']['role'] == 9|| $_SESSION['orders']['role'] == 5){
 			$reports = $this->report->get_reportsByUser($_SESSION['orders']['id']);
 		}else{
 			$reports = $this->report->get_reports();
@@ -276,10 +276,14 @@ class reports extends Controller{
 		}
 		$name = $this->report->getReportName($id);
 		$report = $this->report->get_report($id);
+		// var_dump($report); 
+		// die();
 		if($upc != false)
 		{
 			$upcPriceCompare = $this->brdata->get_upcReport($upc, $this->today, $report[0]['date_from'], $report[0]['date_to']);
 			$this->UPCPriceCompareLog($name, $id, $upc);
+			// var_dump($upcPriceCompare);
+			// die();
 		}
 		else
 		{
@@ -644,9 +648,9 @@ class reports extends Controller{
 							if(count($_SESSION['report']["items"]) > 0)
 							{
 								// save report information
-								$this->report->update_report($_SESSION['report']['id'], $_SESSION['report']['name'], $_SESSION['report']['date_from'], $_SESSION['report']['date_to']);
 								if(!empty($_SESSION['report']['id']))
 								{
+									$this->report->update_report($_SESSION['report']['id'], $_SESSION['report']['name'], $_SESSION['report']['date_from'], $_SESSION['report']['date_to']);
 									// delete report items
 									$this->report->delete_report_items($_SESSION['report']['id']);
 									foreach($_SESSION['report']["items"] as $key => $value)

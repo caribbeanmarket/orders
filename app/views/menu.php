@@ -35,7 +35,7 @@
       {
         echo '<li><a class="menuitems" href="/orders/public/home">New order</a></li>';
       }
-      if($_SESSION['orders']['role'] == 7 || $_SESSION['orders']['role'] == 6 || $_SESSION['orders']['role'] == 8 || $_SESSION['orders']['role'] == 9)
+      if($_SESSION['orders']['role'] == 7 || $_SESSION['orders']['role'] == 6 || $_SESSION['orders']['role'] == 8|| $_SESSION['orders']['role'] == 5 || $_SESSION['orders']['role'] == 9)
       {
         echo '<li><a class="menuitems" href="/orders/public/reports">Order list</a></li>';
       }

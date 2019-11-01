@@ -255,7 +255,7 @@
 						  			echo "<td class = 'lod'>".$data['upcPriceCompare'][$j]['lastReceivingDate']."</td>";
 						  			echo "<td>".$data['upcPriceCompare'][$j]['sales']."</td>";
 						  			echo "<td class = 'vendorno'>".$data['upcPriceCompare'][$j]['VdrNo']."</td>";
-						  			echo "<td></td>";
+						  			echo "<td>".$data['upcPriceCompare'][$j]['VdrName']."</td>";
 					  				echo "</tr>";
 			  					}
 			  					
