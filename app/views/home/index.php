@@ -1,6 +1,6 @@
-<?php include_once '/../header.php'; ?>
+<?php include_once 'C:/wamp/www/orders/app/views/header.php'; ?>
 
-<?php include_once '/../menu.php'; ?>
+<?php include_once 'C:/wamp/www/orders/app/views/menu.php'; ?>
 
 <!-- NEW REPORT IN MAIN PAGE OF APPLICATION -->
 <div class="row">
@@ -182,4 +182,4 @@
 	</form>
 </div>
 
-<?php include_once '/../footer.php'; ?>
+<?php include_once 'C:/wamp/www/orders/app/views/footer.php'; ?>

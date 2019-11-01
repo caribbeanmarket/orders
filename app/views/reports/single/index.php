@@ -1,6 +1,6 @@
-<?php include_once '/../../header.php'; ?>
+<?php include_once 'C:/wamp/www/orders/app/views/header.php'; ?>
 
-<?php include_once '/../../menu.php'; ?>
+<?php include_once 'C:/wamp/www/orders/app/views/menu.php'; ?>
 
 <?php 
 	$status = array(0 => "OPEN", 1 => "CLOSED");
@@ -260,4 +260,4 @@
 	  </tfoot>
 </table>
 </div>
-<?php include_once '/../../footer.php'; ?>
+<?php include_once 'C:/wamp/www/orders/app/views/footer.php'; ?>

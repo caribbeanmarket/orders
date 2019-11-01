@@ -1,6 +1,6 @@
-<?php include_once '/../header.php'; ?>
+<?php include_once 'C:/wamp/www/orders/app/views/header.php'; ?>
 
-<?php include_once '/../menu.php'; ?>
+<?php include_once 'C:/wamp/www/orders/app/views/menu.php'; ?>
 <?php  
 	$colspan="9";
 	if($_SESSION['orders']['role'] == 6)
@@ -69,4 +69,4 @@
 		</table>
 </div>
 
-<?php include_once '/../footer.php'; ?>
+<?php include_once 'C:/wamp/www/orders/app/views/footer.php'; ?>
